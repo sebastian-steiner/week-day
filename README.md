@@ -15,7 +15,7 @@ To calculate the day of week we split the date into multiple parts, e.g. 01.02.2
 4. **Century** e.g. 01.02.**20**03
     - A **century code**
 
-You now add **day + month code + year code + century code** and subtract 1 if your date is in January or February of a leap year. Take the remainder of dividing your final number by 7 and look up the date in this table:
+You now **add day + month code + year code + century code and subtract 1 if your date is in January or February of a leap year**. Take the remainder of dividing your final number by 7 and look up the date in this table:
 
 - 0: Sunday
 - 1: Monday
