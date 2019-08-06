@@ -6,14 +6,14 @@ There are numerous tutorials online that explain the method but most of the time
 ## Basic algorithm
 To calculate the day of week we split the date into multiple parts, e.g. 01.02.2003:
 
-#. **Day of month** e.g. **01**.02.2003
-  - Just the value
-#. **Month** e.g. 01.**02**.2003
-  - A **month code**
-#. **Year** e.g. 01.02.20**03**
-  - A **year code** made up of the following calculation in which the last two digits are called *x*: *(x + x / 4) % 7*, where *%* is the **modulo** operator (remainder of division) and */* is integer division without a decimal part
-#. **Century** e.g. 01.02.**20**03
-  - A **century code**
+1. **Day of month** e.g. **01**.02.2003
+    - Just the value
+2. **Month** e.g. 01.**02**.2003
+    - A **month code**
+3. **Year** e.g. 01.02.20**03**
+    - A **year code** made up of the following calculation in which the last two digits are called *x*: *(x + x / 4) % 7*, where *%* is the **modulo** operator (remainder of division) and */* is integer division without a decimal part
+4. **Century** e.g. 01.02.**20**03
+    - A **century code**
 
 You now add **day + month code + year code + century code** and subtract 1 if your date is in January or February of a leap year. Take the remainder of dividing your final number by 7 and look up the date in this table:
 
