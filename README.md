@@ -1,7 +1,5 @@
 ![](https://img.shields.io/appveyor/ci/macht13/week-day)
 ![](https://img.shields.io/travis/macht13/week-day)
-![](https://img.shields.io/github/commit-activity/m/macht13/week-day)
-![](https://img.shields.io/github/last-commit/macht13/week-day)
 ![](https://img.shields.io/maintenance/yes/2019)
 
 # week-day
