@@ -1,14 +1,9 @@
 use std::io;
 
-macro_rules! wprintln {
-    ($fmt:expr) => (print!(concat!($fmt, "\r\n")));
-    ($fmt:expr, $($arg:tt)*) => (print!(concat!($fmt, "\r\n"), $($arg)*));
-}
-
 pub fn req_num(req: Option<&str>, def: Option<u32>) -> u32 {
     match (req, def) {
-        (Some(req), Some(def)) => wprintln!("{} (or {})", req, def),
-        (Some(req), _) => wprintln!("{}", req),
+        (Some(req), Some(def)) => println!("{} (or {})", req, def),
+        (Some(req), _) => println!("{}", req),
         _ => ()
     };
     read_num(def)

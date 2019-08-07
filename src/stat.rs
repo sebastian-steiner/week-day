@@ -1,6 +1,7 @@
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::prelude::*;
+use super::io;
 
 pub struct Stat {
     times: Vec<Duration>,
@@ -19,17 +20,35 @@ impl Stat {
         }
     }
 
-    pub fn start_try(&mut self) {
+    pub fn try_again(&mut self, req: Option<&str>, corr: u32, end: u32) -> bool {
         self.curr_time = Instant::now();
+        let ans = io::req_num(req, None);
+        if ans == corr {
+            self.end_try(true);
+            println!("✓");
+            true
+        } else if ans > end {
+            // user wants to quit
+            false
+        } else {
+            self.end_try(false);
+            println!("❌: {}", corr);
+            true
+        }
     }
 
-    pub fn end_try(&mut self, correct: bool) {
+    fn end_try(&mut self, correct: bool) {
         self.tries += 1;
         if !correct {
             self.incorrect += 1;
         } else {
             self.times.push(self.curr_time.elapsed());
         }
+    }
+
+    pub fn print(&self) {
+        println!("{}", self);
+        self.to_file("data/months.csv")
     }
 
     fn mean_times(&self) -> f64 {
