@@ -1,3 +1,7 @@
+![](https://img.shields.io/appveyor/ci/macht13/week-day)
+![](https://img.shields.io/travis/macht13/week-day)
+[![Build Status](https://travis-ci.com/macht13/week-day.png)](https://travis-ci.com/macht13/week-day)
+
 # week-day
 Practice your mental skills by learning to quickly calculate the day of week of an arbitrary date in the Gregorian calendar.
 
@@ -26,4 +30,4 @@ You now **add day + month code + year code + century code and subtract 1 if your
 - 6: Saturday
 
 ## Differences to other methods
- In this case the constants for *months* and *centuries* is different than others such as ![this one](https://plus.maths.org/content/what-day-week-were-you-born). But since *century codes* are changed to better fit the needs of the competition, so are *year codes* (corresponding to the two least significant digits in the year). That is each *year code* is **incremented by 2** two speed up computation.
+  In this case the constants for *months* and *centuries* is different than others such as ![this one](https://plus.maths.org/content/what-day-week-were-you-born). But since *century codes* are changed to better fit the needs of the competition, so are *year codes* (corresponding to the two least significant digits in the year). That is each *year code* is **incremented by 2** two speed up computation.
