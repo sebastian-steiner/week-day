@@ -60,7 +60,7 @@ deploy:
     # and nightly channels. This condition makes sure there is only one release
     # for such targets and that's generated using the stable channel
     RUST_VERSION: stable
-    appveyor_repo_tag: true
+    appveyor_repo_tag: false
   provider: GitHub
   force_update: true
 
