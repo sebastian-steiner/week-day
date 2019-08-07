@@ -87,12 +87,12 @@ impl Trainer {
         stats.print();
     }
 
-    pub fn practice_full(&self) {
-    
+    pub fn practice_day_month(&self) {
+        println!("Practice day-month combinations:");
     }
 
-    pub fn practice_day_month(&self) {
-    
+    pub fn practice_full(&self) {
+        println!("Practice full dates:");
     }
 }
 
