@@ -2,9 +2,10 @@ extern crate chrono;
 extern crate rand;
 
 use trainer::Trainer;
+use std::io;
 
 mod trainer;
-mod io;
+mod num_io;
 mod date;
 mod stat;
 
@@ -16,7 +17,7 @@ fn main() {
         println!("Do you want to see codes for: centuries (cc), years (yc) or months (mc)?");
         println!("Or practice: centuries: (cp), years (yp), months (mp), day-month (dmp) or full (default)?");
         input = String::new();
-        std::io::stdin().read_line(&mut input)
+        io::stdin().read_line(&mut input)
             .expect("Failed to read line");
         match input.trim().as_ref() {
             "cc"    => trainer.learn_centuries(),

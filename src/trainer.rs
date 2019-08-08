@@ -1,5 +1,7 @@
+use super::num_io;
 use super::stat::Stat;
-use rand::prelude::*;
+use super::date;
+use rand::{distributions::Uniform, prelude::*};
 
 pub struct Trainer {
     months: [u8; 12],
@@ -38,12 +40,12 @@ impl Trainer {
 
     pub fn learn_years(&self) {
         println!("Year codes:");
-        println!("year, code");
-        for i in 0..100 {
-            println!("{:#02}, {}", i, year_code(i));
+        let min = std::cmp::max(0, num_io::req_num(Some("Enter lower range"), Some(0)));
+        let max = std::cmp::min(99, num_io::req_num(Some("Enter upper range"), Some(99)));
+        for i in min..=max {
+            println!("{:#02}, {}", i, date::year_code(i));
         }
     }
-
 
     pub fn practice_centuries(&self) {
         let mut stats = Stat::new();
@@ -56,9 +58,9 @@ impl Trainer {
                 break;
             }
         }
-        stats.print();
+        stats.print("data/centuries.csv");
     }
-    
+
     pub fn practice_months(&self) {
         let mut stats = Stat::new();
         println!("Practice month codes:");
@@ -70,33 +72,76 @@ impl Trainer {
                 break;
             }
         }
-        stats.print();
+        stats.print("data/months.csv");
     }
 
     pub fn practice_years(&self) {
         let mut stats = Stat::new();
         println!("Practice year codes:");
+        let min = std::cmp::max(0, num_io::req_num(Some("Enter lower range"), Some(0)));
+        let max = std::cmp::min(99, num_io::req_num(Some("Enter upper range"), Some(99)));
         println!("Quit after 50 tries or by entering number > 6");
         for _ in 0..50 {
-            let year = rand::thread_rng().gen_range(0, 100);
+            let year = Uniform::from(min..=max).sample(&mut rand::thread_rng());
             let req = format!("xx{}?", year);
-            if !stats.try_again(Some(&req), year_code(year), 6) {
+            if !stats.try_again(Some(&req), date::year_code(year % 100), 6) {
                 break;
             }
         }
-        stats.print();
+        stats.print("data/years.csv");
     }
 
     pub fn practice_day_month(&self) {
+        let mut stats = Stat::new();
         println!("Practice day-month combinations:");
+        println!("Quit after 50 tries or by entering number > 6");
+        let mut rng = rand::thread_rng();
+        for _ in 0..50 {
+            let month = Uniform::from(1..=12).sample(&mut rng);
+            let day = Uniform::from(1..=date::day_max_from_date(month, None)).sample(&mut rng);
+            let req = format!("{:#02}.{:#02}.", day, month);
+            if !stats.try_again(Some(&req), self.week_day(day, month, None), 6) {
+                break;
+            }
+        }
+        stats.print("data/day-month.csv");
     }
 
     pub fn practice_full(&self) {
+        let mut stats = Stat::new();
         println!("Practice full dates:");
+        println!("Quit after 50 tries or by entering number > 6");
+        let mut rng = rand::thread_rng();
+        for _ in 0..50 {
+            let year = Uniform::from(1600..=2400).sample(&mut rng);
+            let month = Uniform::from(1..=12).sample(&mut rng);
+            let day = Uniform::from(1..=date::day_max_from_date(month, Some(year))).sample(&mut rng);
+            let req = format!("{:#02}.{:#02}.{:#04}", day, month, year);
+            if !stats.try_again(Some(&req), self.week_day(day, month, Some(year)), 6) {
+                break;
+            }
+        }
+        stats.print("data/full.csv");
+    }
+
+    fn week_day(&self, day: u32, month: u32, year: Option<u32>) -> u32 {
+        let month_code = self.months[(month - 1) as usize] as u32;
+        let year_code = match year {
+            Some(year) => {
+                let code = date::year_code(year % 100);
+                if date::is_leap_year(year) && month < 3 {
+                    code - 1
+                } else {
+                    code
+                }
+            },
+            None => 0
+        };
+        let century_code = match year {
+            Some(year) => self.centuries[((year / 100) % 4) as usize] as u32,
+            None => 0
+        };
+        (day + month_code + year_code + century_code) % 7
     }
 }
 
-
-fn year_code(year: u32) -> u32 {
-    (year + year / 4 + 2) % 7
-}

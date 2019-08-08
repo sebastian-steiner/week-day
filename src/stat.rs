@@ -1,7 +1,7 @@
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::prelude::*;
-use super::io;
+use super::num_io;
 
 pub struct Stat {
     times: Vec<Duration>,
@@ -22,7 +22,7 @@ impl Stat {
 
     pub fn try_again(&mut self, req: Option<&str>, corr: u32, end: u32) -> bool {
         self.curr_time = Instant::now();
-        let ans = io::req_num(req, None);
+        let ans = num_io::req_num(req, None);
         if ans == corr {
             self.end_try(true);
             println!("✓");
@@ -46,9 +46,9 @@ impl Stat {
         }
     }
 
-    pub fn print(&self) {
+    pub fn print(&self, file: &str) {
         println!("{}", self);
-        self.to_file("data/months.csv")
+        self.to_file(file)
     }
 
     fn mean_times(&self) -> f64 {
