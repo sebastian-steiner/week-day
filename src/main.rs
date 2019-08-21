@@ -15,7 +15,7 @@ fn main() {
     let mut input;
     loop {
         println!("Do you want to see codes for: centuries (cc), years (yc) or months (mc)?");
-        println!("Or practice: centuries: (cp), years (yp), months (mp), day-month (dmp) or full (default)?");
+        println!("Or practice: centuries: (cp), years (yp), months (mp), day-month (dmp), day (dp) or full (default)?");
         input = String::new();
         io::stdin().read_line(&mut input)
             .expect("Failed to read line");
@@ -27,6 +27,7 @@ fn main() {
             "yp"    => trainer.practice_years(),
             "mp"    => trainer.practice_months(),
             "dmp"   => trainer.practice_day_month(),
+            "dp"    => trainer.practice_day(),
             _       => trainer.practice_full()
         }
     }

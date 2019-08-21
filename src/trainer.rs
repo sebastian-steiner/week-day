@@ -124,6 +124,21 @@ impl Trainer {
         stats.print("data/full.csv");
     }
 
+    pub fn practice_day(&self) {
+        let mut stats = Stat::new();
+        println!("Practice days:");
+        println!("Quit after 50 tries or by entering number > 6");
+        let mut rng = rand::thread_rng();
+        for _ in 0..50 {
+            let day = Uniform::from(1..=31).sample(&mut rng);
+            let req = format!("{:#02}.", day);
+            if !stats.try_again(Some(&req), day % 7, 6) {
+                break;
+            }
+        }
+        stats.print("data/day.csv");
+    }
+
     fn week_day(&self, day: u32, month: u32, year: Option<u32>) -> u32 {
         let month_code = self.months[(month - 1) as usize] as u32;
         let year_code = match year {
