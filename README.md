@@ -1,6 +1,6 @@
-[](https://img.shields.io/appveyor/ci/macht13/week-day)
-[](https://img.shields.io/travis/macht13/week-day)
-[](https://img.shields.io/maintenance/yes/2019)
+![](https://img.shields.io/appveyor/ci/macht13/week-day)
+![](https://img.shields.io/travis/macht13/week-day)
+![](https://img.shields.io/maintenance/yes/2019)
 
 # week-day
 Practice your mental skills by learning to quickly calculate the day of week of an arbitrary date in the Gregorian calendar.
